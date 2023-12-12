@@ -168,6 +168,15 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // for captch
+        Mews\Captcha\CaptchaServiceProvider::class,
+        // for recaptcha
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        //peach payment
+        Shaz3e\PeachPayment\Providers\PeachPaymentServiceProvider::class,
+        // for facebook
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -183,6 +192,13 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        //for captch
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        // for recptcha
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        // for facebook
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
     ])->toArray(),
 
 ];

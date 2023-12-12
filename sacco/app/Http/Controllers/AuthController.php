@@ -39,6 +39,7 @@ class AuthController extends Controller
         $data['meta_title']='Register';
         return view('Auth.register',$data);
     }
+    
 
     public function forgot(Request $request)
     {
@@ -72,6 +73,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
+            'captcha' => 'required|captcha'
         ]);
         
         $user = new User;
@@ -83,6 +85,14 @@ class AuthController extends Controller
         $user->save();
         return redirect('/')->with('success','register successfully!');
     }
+
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img('math')]);
+    }
+
+    
     public function logout(){
         Auth::logout();
         return redirect(url('/'));

@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\LoanPlanController;
 use App\Http\Controllers\LoanTypesController;
 use App\Http\Controllers\LoanUserController;
+use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +26,19 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// facebook login
+Route::get('auth/facebook', [SocialiteController::class, 'redirectToFB']);
+Route::get('callback/facebook', [SocialiteController::class, 'handleCallback']);
+
+Route::get('auth/google', [SocialiteController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+Route::get('/error', [ErrorController::class, 'show'])->name('error.page');
+
+
+
 Route::get('/',[AuthController::class,'login']);
 Route::get('/register',[AuthController::class,'register']);
+Route::get('/reload-captcha', [AuthController::class, 'reloadCaptcha']);
 Route::get('/register_post',[AuthController::class,'register_post']);
 Route::get('login_post',[AuthController::class,'login_post']);
 Route::get('/forgot',[AuthController::class,'forgot']);
@@ -81,6 +95,9 @@ Route::group(['middleware' => 'admin'],function(){
     Route::get('admin/logo', [DashboardController::class, 'website_logo']);
     Route::post('admin/logo_update', [DashboardController::class, 'website_logo_update']);
 
+    // paypal
+    
+
 
 
 });
@@ -96,3 +113,11 @@ Route::group(['middleware' => 'staff'],function(){
 });
 
 Route::get('logout',[AuthController::class,'logout']);
+// Route::match(['get', 'post'], 'stripe', [DashboardController::class, 'stripe'])->name('stripe');
+Route::get('/checkout',[DashboardController::class,'checkout'])->name('checkout');
+Route::post('/session',[DashboardController::class,'session'])->name('session');
+
+Route::get('/success', [DashboardController::class, 'success'])->name('success');
+
+
+

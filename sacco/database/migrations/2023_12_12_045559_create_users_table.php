@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->tinyInteger('is_role'); //0-staff and 1-admin
             // $table->tinyInteger('is_delete');  add manually is_delete default ->0
+            // $table->string('social_id')->nullable();
+            // $table->string('social_type')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,0 +1,212 @@
+
+    part->#11#=> soft delete
+    part->#12#=> edit staff 
+    part->#13#=> loan types
+    part->#14#=> loan delte into datatbase
+    part->#15#=> loan types edit and update
+    part->#16#=> add loan plans
+    part->#17#=> edit,update and delete loan plans
+    part->#18#=> get selected option value to dropdown list another table
+    part->#19#=> admin side create loan user in databse and validation
+    part->#20#=> 
+    part->#20#=> 
+    part->#20#=> 
+    part->#23#=> 
+    part->#24=> profile update
+    part->#25=> count values
+    part->#26=> count values
+    part->#27#=> integrate mail after admin successfully create staff
+    part->#28=> mail trap after staff login
+    part->#29=> staff data fetch
+    part->#30=> join  multiple table using elquoent 
+    part->#31=> staff profile update
+    part->#32=> auth profile,name,and email
+    part->#33=> website name and logo chage dynamic
+    part->#34=> set meta titles with view composer
+    part->#34=> forgot password using mail(not worked)
+     
+    part->#35#=> integrate mail after admin successfully create staff
+    part->#36#=> conclusion
+
+1.Admin side*************
+************sidebar menu**********************
+    -home
+    -loans
+    -payments
+    -borrowers   
+    -loan plans
+    -loan type
+    -users
+    -logout
+
+    1.home  
+        -payments today
+        -borrowers
+        -active loans
+        -total reciveable
+    2.loans
+        -new loan application
+        -loan type
+        -loan plan
+        -loan amount
+        -purpose
+    3.payments
+        -new payments   
+        -loan reference no.        
+    4.borrowers
+        -new borrower
+        -first name
+        -last name
+        -sure name
+        -address
+        -contact
+        -email
+        -tax id
+    5.loan plans 
+        -plans form
+        -plan(months)
+        -intrest
+        -monthly over due's penalty
+    6.loan types
+        -loan types form
+        -type
+        -desc
+    7.users
+        -new users
+        -name
+        -username
+        -password
+        -usertype(admin ,staff)
+    8.logout
+        -admin logout
+
+
+
+2.staff side
+************sidebar menu**********************
+     -home
+    -loans
+    -payments
+    -borrowers   
+    -loan plans
+    -loan type
+    -logout
+
+    1.home  
+        -payments today
+        -borrowers
+        -active loans
+        -total reciveable
+    2.loans
+        -new loan application
+        -loan type
+        -loan plan(month[intest%,penalty%])
+        -loan amount
+        -purpose
+    3.payments
+        -new payment
+        -loan reference no.        
+    4.borrowers
+        -new borrower
+        -first name
+        -last name
+        -sure name
+        -address
+        -contact
+        -email
+        -tax id
+    5.loan plans 
+        -plans form
+        -plan(months)
+        -intrest
+        -monthly over due's penalty
+    6.loan types
+        -loan types form
+        -type
+        -desc
+   
+    7.logout
+        -admin logout
+
+
+step 1 how protect .env file
+    1.1st remove all file inside public folder and these file store in project directory
+    2.open .htaccess inside paste it i,e
+    (
+        <Files .env>
+        order allow,deny
+        Deny from all
+        </Files>
+    )
+    3.open index.php
+    changees::
+        ->$maintenance = __DIR__.'/../storage/framework/maintenance.php'  to -> $maintenance = __DIR__.'/storage/framework/maintenance.php'
+        ->require __DIR__.'/../vendor/autoload.php';                      to->require __DIR__.'/vendor/autoload.php';
+        ->$app = require_once __DIR__.'/../bootstrap/app.php';              to->$app = require_once __DIR__.'/bootstrap/app.php';
+    4.follow above 3 approach protected .env file
+
+3.# modify users table manually
+    add lastname,surename (varchar) and is_role(tinyint) 0-staff and 1-admin    ,bdo_date,mobile_number,profile_image,remember_token
+
+4.# mailtrap email id->omm@754140.com
+            password -> OmmPrakash754140@gmail.com  
+5.# add staff_id in loans_ table manually    
+
+
+6.# cpatcha integration-> composer require mews/captcha
+    6.1-> 'providers' => [
+        ...
+        ...
+        ...
+        Mews\Captcha\CaptchaServiceProvider::class,
+    ]
+    6.2-> 'aliases' => [
+        ...
+        ...
+        ...
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+    ]
+    6.3-> php artisan vendor:publish --> select where add captch means number thats why we create (config/captcha.php)
+    6.4 added jquery cdn and also added controller(authcontroller) and route 
+    6.5 refered by (https://www.positronx.io/laravel-captcha-tutorial-example/)
+
+
+not worked
+// 7.integrate google recaptcha
+//     7.1->1st login or signup in recaptcha website then add example then v3 then domain(example in this project we use 1.localhost 2.127.0.0.1) then it shown copy site key(6Lf38yopAAAAAEzaEFXWZKLja3nKI7HRKwgpg3bP) copy secret key(6Lf38yopAAAAAM5A6FrtaP_XMp-gn1Fxa_8wkqYN)
+//     7.2->go inside config->services.php
+//         (
+//         'recaptcha' => [
+//         'site_key' => env('RECAPTCHA_SITE_KEY'),
+//         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
+//     ],
+//     )
+//     7.3 Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,(provides in app.php)
+//     7.4 'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,(aliases in app.php)
+//     7.5 to run (php artisan vendor:publish --provider="Anhskohbo\NoCaptcha\NoCaptchaServiceProvider")->in command line
+
+
+// 8.peach-payment name-omm lastname-prakash email-omm754140@gmail.com  url=>http://127.0.0.1:8000/admin/dashboard
+// // 9.paypal   email->dassagar754140@cwa.com  password->rajesh@7381   
+// 9.paypal   email->dassagar754141@cwa.com  password->dassagar754140
+//             email->sb-kgb9e28696626@personal.example.com          password->rajesh754140
+//             for business account
+//             email->sb-wn43vy28696586@business.example.com         password->rajesh754140
+
+
+
+// stripe payment integration
+# stripe
+step-1->composer require stripe/stripe-php
+step-2->manually craete stripe.php(  <?php
+return[
+    'pk'=>env('STRIPE_KEY'),
+    'sk'=>env('STRIPE_SECRET'),
+];)
+step-3->
+// # dassagar754140@gmail.com p-Rajesh@7381******
+    STRIPE_KEY=pk_test_51O4aMcBJJlf62l1H1xtVpxsi3lRCsohhQrgTDJGt3TVP6zYqh0xg5t9dL0WVN9FIjvacZ2nOByCjNlCYR5TQRKts00Vv82p39K
+    STRIPE_SECRET=sk_test_51O4aMcBJJlf62l1HWCD7G3gPflxr90fy6wRubjKtHDrBRco3vUiW7pXhgnGDulzidaopSBJhGMgko3qSGOiqLVwC00tTAg5juz
+
+
+// login using email address pwd->OmmPrakash754140 email->omm754140@gmail.com

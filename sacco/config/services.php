@@ -30,5 +30,20 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'recaptcha' => [
+        'site_key' => env('RECAPTCHA_SITE_KEY'),
+        'secret_key' => env('RECAPTCHA_SECRET_KEY'),
+    ],
+    'facebook' => [
+        'client_id' => '740249607962096',
+        'client_secret' => '95a1af280c0cde82c7b95411231751c2',
+        'redirect' => 'http://localhost:8000/callback/facebook',
+    ],    
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => 'http://localhost:8000/auth/callback/google',
+    ],    
+    
 
 ];

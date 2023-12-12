@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <div class="card mb-3">
 
   <div class="card-body">
@@ -28,7 +29,7 @@
         <label for="email" class="form-label">Email</label>
         <div class="input-group has-validation">
           <span class="input-group-text" id="inputGroupPrepend">@</span>
-          <input type="text" name="email" class="form-control" id="email" value="{{old('email')}}" required>
+          <input type="text" name="email" class="form-control" id="email" value="{{old('email')}}" required autocomplete="username">
           <br>
           <span style="color: red">{{$errors->first('email')}}</span>
           <div class="invalid-feedback">enter your email</div>
@@ -37,11 +38,32 @@
 
       <div class="col-12">
         <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="password" required>
+        <input type="password" name="password" class="form-control" id="password" required autocomplete="current-password">
 
         <span style="color: red">{{$errors->first('password')}}</span>
         <div class="invalid-feedback">Please enter your password!</div>
       </div>
+
+      {{-- <div class="col-12">
+        <label for="password" class="form-label"></label>
+        <strong>google recaptcha</strong>
+        {!! NoCaptcha::renderJs() !!}
+        {!! NoCaptcha::display() !!}
+      </div> --}}
+
+      <div class="form-group mt-4 mb-4">
+        <div class="captcha">
+            <span>{!! captcha_img('math') !!}</span>
+            <button type="button" class="btn btn-danger" class="reload" id="reload">
+                &#x21bb;
+            </button>
+        </div>
+    </div>
+    <div class="form-group mb-4">
+        <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
+        <span style="color: red">{{$errors->first('captcha')}}</span>
+        <div class="invalid-feedback">Please, enter your Last name!</div>
+    </div>
 
       <div class="col-12">
         <div class="form-check">
@@ -62,5 +84,15 @@
   </div>
 </div>
 
-
+<script type="text/javascript">
+  $('#reload').click(function () {
+      $.ajax({
+          type: 'GET',
+          url: 'reload-captcha',
+          success: function (data) {
+              $(".captcha span").html(data.captcha);
+          }
+      });
+  });
+</script>
 @endsection
