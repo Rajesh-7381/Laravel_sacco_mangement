@@ -37,10 +37,10 @@
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                       <a href="{{ url('auth/google') }}" style="margin-top: 0px !important;background: green;color: #ffffff;padding: 5px;border-radius:7px;" class="ml-2">
                         <strong>google Login</strong>
-                    </a>
+                    </a> --}}
                     
                     </div>
                     <div class="col-12">

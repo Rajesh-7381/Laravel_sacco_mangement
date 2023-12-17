@@ -16,7 +16,8 @@
         "mews/captcha": "^3.3",
         "shaz3e/peach-payment": "^1.0",
         "srmklive/paypal": "~3.0",
-        "stripe/stripe-php": "^13.6"
+        "stripe/stripe-php": "^13.6",
+        "tymon/jwt-auth": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

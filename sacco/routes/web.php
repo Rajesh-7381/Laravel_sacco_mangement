@@ -29,9 +29,8 @@ use Illuminate\Support\Facades\Route;
 // facebook login
 Route::get('auth/facebook', [SocialiteController::class, 'redirectToFB']);
 Route::get('callback/facebook', [SocialiteController::class, 'handleCallback']);
-
 Route::get('auth/google', [SocialiteController::class, 'redirectToGoogle']);
-Route::get('auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+Route::get('callback/google', [SocialiteController::class, 'handleGoogleCallback']);
 Route::get('/error', [ErrorController::class, 'show'])->name('error.page');
 
 
